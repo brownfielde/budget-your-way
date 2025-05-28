@@ -26,6 +26,11 @@ button { font-family: inherit; border: none; cursor: pointer; transition: backgr
   to { opacity: 1; transform: translateY(0); }
 }
 
+.icon{
+  color:black !important;
+
+}
+
 .navbar {
   display: flex; align-items: center; justify-content: space-between;
   background: var(--card-bg); padding: 0.75rem 1.5rem;

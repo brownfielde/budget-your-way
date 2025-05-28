@@ -1,6 +1,7 @@
 // src/App.tsx
 import React from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginPage from './components/LoginPage';
 import HomePage from './components/HomePage';
 import Navbar from './components/Navbar';

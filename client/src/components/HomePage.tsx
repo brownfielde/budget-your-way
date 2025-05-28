@@ -10,6 +10,13 @@ interface Transaction {
   type: 'expense' | 'income';
 }
 
+interface Budget {
+  Groceries: number;
+  "Debt Owed": number;
+  Rent: number;
+  Utilities: number;
+}
+
 const BUDGETS = { Groceries: 500, 'Debt Owed': 1000, Rent: 1200, Utilities: 300 };
 const INITIAL_TRANSACTIONS: Transaction[] = [
   { id: 1, date: '2025-05-27', category: 'Groceries', description: 'Whole Foods', amount: 75, type: 'expense' },
@@ -22,6 +29,8 @@ const COLORS = ['#0088FE', '#FF8042', '#00C49F', '#FFBB28', '#8884D8'];
 
 const HomePage: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>(INITIAL_TRANSACTIONS);
+   const [budgets, setBudgets] = useState<Budget>(BUDGETS);
+
   const [form, setForm] = useState<Partial<Transaction>>({ date: '', category: '', description: '', amount: 0, type: 'expense' });
 
   const expenseData = Object.entries(
@@ -49,7 +58,7 @@ const HomePage: React.FC = () => {
       <header className="dashboard-header"><h1>Your Budget Dashboard</h1></header>
 
       <section className="summary-cards">
-        {Object.entries(BUDGETS).map(([cat, budget]) => {
+        {Object.entries(budgets).map(([cat, budget]) => {
           const spent = transactions.filter(t => t.category === cat && t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
           const pct = Math.min(Math.round((spent / budget) * 100), 100);
           return (
@@ -92,7 +101,13 @@ const HomePage: React.FC = () => {
 
         <form className="add-tx-form" onSubmit={handleAdd}>
           <input type="date" value={form.date || ''} onChange={e => setForm({ ...form, date: e.target.value })} required />
-          <input type="text" placeholder="Category" value={form.category || ''} onChange={e => setForm({ ...form, category: e.target.value })} required />
+          {/* <input type="text" placeholder="Category" value={form.category || ''} onChange={e => setForm({ ...form, category: e.target.value })} required /> */}
+          <select value={form.category || ''} onChange={e => setForm({ ...form, category: e.target.value })} required>
+            <option value="">Select Category</option>
+            {Object.keys(budgets).map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+            </select>
           <input type="text" placeholder="Description" value={form.description || ''} onChange={e => setForm({ ...form, description: e.target.value })} required />
           <input type="number" placeholder="Amount" value={form.amount || ''} onChange={e => setForm({ ...form, amount: Number(e.target.value) })} required />
           <select value={form.type} onChange={e => setForm({ ...form, type: e.target.value as any })}>

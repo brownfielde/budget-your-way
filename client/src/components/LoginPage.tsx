@@ -1,5 +1,6 @@
 // src/components/LoginPage.tsx
 import React, { FormEvent, useState } from 'react';
+import Container from 'react-bootstrap/Container';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
@@ -26,11 +27,11 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="login-page">
-      <header className="dashboard-header"><h1>💰Your Budget Dashboard</h1></header>
+      <header className="dashboard-header"><h1><span className='icon' style={{color:"none !important"}}>💰</span>Your Budget Dashboard</h1></header>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Email</label>
+          <label htmlFor="formGroupExampleInput" className="form-label">Email</label>
           <input
             type="email"
             value={email}
@@ -49,14 +50,15 @@ const LoginPage: React.FC = () => {
         </div>
 
         <div style={{ marginTop: 8 }}>
-          <button type="submit">Login</button>
+          <button type="button" className="btn btn-dark">Login</button>
           <button
-            type="button"
+            type="button" className="btn btn-primary"
             onClick={handleDemo}
             style={{ marginLeft: 8 }}
           >
             Demo
           </button>
+          
         </div>
       </form>
     </div>
