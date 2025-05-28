@@ -26,6 +26,7 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="login-page">
+      <header className="dashboard-header"><h1>💰Your Budget Dashboard</h1></header>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
