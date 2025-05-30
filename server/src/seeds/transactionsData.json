@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "date": "2024-05-01",
+    "category": "Groceries",
+    "description": "Walmart grocery shopping",
+    "amount": 75.50,
+    "type": "expense"
+  },
+  {
+    "id": 2,
+    "date": "2024-05-03",
+    "category": "Salary",
+    "description": "Monthly paycheck",
+    "amount": 2500.00,
+    "type": "income"
+  },
+  {
+    "id": 3,
+    "date": "2024-05-05",
+    "category": "Utilities",
+    "description": "Electricity bill",
+    "amount": 120.00,
+    "type": "expense"
+  },
+  {
+    "id": 4,
+    "date": "2024-05-07",
+    "category": "Dining",
+    "description": "Dinner at Olive Garden",
+    "amount": 45.00,
+    "type": "expense"
+  },
+  {
+    "id": 5,
+    "date": "2024-05-10",
+    "category": "Freelance",
+    "description": "Web design project",
+    "amount": 600.00,
+    "type": "income"
+  }
+]

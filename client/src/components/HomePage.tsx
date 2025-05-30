@@ -1,5 +1,6 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useQuery, gql  } from '@apollo/client';
 
 interface Transaction {
   id: number;
@@ -17,6 +18,18 @@ interface Budget {
   Utilities: number;
 }
 
+const GET_TRANSACTIONS = gql`
+  query GetTransactions {
+    transactions {
+      id
+      date
+      category
+      description
+      amount
+      type
+    }
+  }
+`;
 const BUDGETS = { Groceries: 500, 'Debt Owed': 1000, Rent: 1200, Utilities: 300 };
 const INITIAL_TRANSACTIONS: Transaction[] = [
   { id: 1, date: '2025-05-27', category: 'Groceries', description: 'Whole Foods', amount: 75, type: 'expense' },
@@ -28,10 +41,31 @@ const INITIAL_TRANSACTIONS: Transaction[] = [
 const COLORS = ['#0088FE', '#FF8042', '#00C49F', '#FFBB28', '#8884D8'];
 
 const HomePage: React.FC = () => {
+  const { loading, error, data } = useQuery(GET_TRANSACTIONS);
+  
+
+   // Start with an empty array
   const [transactions, setTransactions] = useState<Transaction[]>(INITIAL_TRANSACTIONS);
-   const [budgets, setBudgets] = useState<Budget>(BUDGETS);
+  const [budgets, setBudgets] = useState<Budget>(BUDGETS);
 
   const [form, setForm] = useState<Partial<Transaction>>({ date: '', category: '', description: '', amount: 0, type: 'expense' });
+
+   // Combine static and fetched transactions when data loads
+   useEffect(() => {
+    if (data && data.transactions) {
+      // Merge and deduplicate by id (optional)
+      const combined = [
+        ...INITIAL_TRANSACTIONS,
+        ...data.transactions.filter(
+          (dbTx: Transaction) => !INITIAL_TRANSACTIONS.some(staticTx => staticTx.id === dbTx.id)
+        ),
+      ];
+      setTransactions(combined);
+    }
+  }, [data]);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error loading data</div>;
 
   const expenseData = Object.entries(
     transactions
@@ -51,6 +85,7 @@ const HomePage: React.FC = () => {
       ]);
       setForm({ date: '', category: '', description: '', amount: 0, type: 'expense' });
     }
+    
   };
 
   return (
