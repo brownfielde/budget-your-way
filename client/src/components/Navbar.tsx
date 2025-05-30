@@ -1,15 +1,9 @@
-import React from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth'
 
-const Navbar: React.FC = () => {
-  const { logout, user } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    navigate('/login', { replace: true });
-  };
+export default function Navbar() {
+  const { logout, user } = useAuth()
+  const navigate = useNavigate()
 
   return (
     <nav className="navbar">
@@ -20,10 +14,8 @@ const Navbar: React.FC = () => {
       </div>
       <div className="user-actions">
         {user && <span className="welcome">Hi, {user.name}</span>}
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={() => { logout(); navigate('/login', { replace: true }) }}>Logout</button>
       </div>
     </nav>
-  );
-};
-
-export default Navbar;
+  )
+}

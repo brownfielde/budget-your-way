@@ -1,33 +1,46 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { User } from '../types';
-import axios from 'axios';
+import { createContext, useState, useEffect } from 'react'
+import { User } from '../types'
 
-interface AuthContextType {
-  user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
-}
+export const AuthContext = createContext<{
+  user: User | null
+  login: (email: string, password: string) => Promise<void>
+  logout: () => void
+  loading: boolean
+} | undefined>(undefined)
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    // TODO: fetch current user from backend
-    // axios.get('/api/auth/me').then(resp => setUser(resp.data));
-  }, []);
+    const s = localStorage.getItem('user')
+    if (s) {
+      try { setUser(JSON.parse(s)) }
+      catch { localStorage.removeItem('user') }
+    }
+  }, [])
 
   const login = async (email: string, password: string) => {
-    // placeholder: replace with real API
-    const resp = await axios.post<User>('/api/auth/login', { email, password });
-    setUser(resp.data);
-  };
+    setLoading(true)
+    try {
+      await new Promise(r => setTimeout(r, 1000))
+      const u: User = { id: '1', name: email.split('@')[0] || 'User', email }
+      setUser(u)
+      localStorage.setItem('user', JSON.stringify(u))
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const logout = () => {
-    // placeholder: replace with real API
-    setUser(null);
-  };
+    setUser(null)
+    localStorage.removeItem('user')
+    localStorage.removeItem('demoMode')
+  }
 
-  return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;
-};
+  return (
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
+      {children}
+    </AuthContext.Provider>
+  )
+}

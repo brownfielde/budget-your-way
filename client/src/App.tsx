@@ -1,39 +1,35 @@
 // src/App.tsx
-import React from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import LoginPage from './components/LoginPage';
-import HomePage from './components/HomePage';
-import Navbar from './components/Navbar';
-import { useAuth } from './hooks/useAuth';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import LoginPage from './components/LoginPage'
+import HomePage from './components/HomePage'
+import Navbar from './components/Navbar'
+import { useAuth } from './hooks/useAuth'
 
-const App: React.FC = () => {
-  const { user } = useAuth();
-  const location = useLocation();
-  // Pull the `demo` flag from navigation state:
-  const fromDemo = (location.state as any)?.demo === true;
-  const isAuthed = !!user || fromDemo;
+type LocationState = { demo?: boolean }
+
+export default function App() {
+  const { user } = useAuth()
+  const location = useLocation()
+  const state = location.state as LocationState
+  const isAuthed = Boolean(user) || state?.demo
 
   return (
-    <div>
+    <>
       {isAuthed && <Navbar />}
-
       <Routes>
         <Route
           path="/login"
-          element={!user ? <LoginPage /> : <Navigate to="/" replace />}
+          element={isAuthed ? <Navigate to="/" replace /> : <LoginPage />}
         />
         <Route
           path="/"
-          element={
-            isAuthed
-              ? <HomePage />
-              : <Navigate to="/login" replace />
-          }
+          element={isAuthed ? <HomePage /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="*"
+          element={<Navigate to={isAuthed ? "/" : "/login"} replace />}
         />
       </Routes>
-    </div>
-  );
-};
-
-export default App;
+    </>
+  )
+}
