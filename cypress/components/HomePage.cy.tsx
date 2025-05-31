@@ -34,4 +34,7 @@ describe('HomePage', () => {
     
     // Check if the new transaction appears in the chart
     cy.get('.expense-chart').should('contain.text', 'Groceries');
+    cy.get('.transactions-table tbody tr').should('have.length.greaterThan', 0);
+
+    
   });
