@@ -139,9 +139,13 @@ const HomePage: React.FC = () => {
           {/* <input type="text" placeholder="Category" value={form.category || ''} onChange={e => setForm({ ...form, category: e.target.value })} required /> */}
           <select value={form.category || ''} onChange={e => setForm({ ...form, category: e.target.value })} required>
             <option value="">Select Category</option>
-            {Object.keys(budgets).map(cat => (
+            {form.type === 'income' ? (
+            <option value="Income">Income</option>
+            ) : (
+            Object.keys(budgets).map(cat => (
               <option key={cat} value={cat}>{cat}</option>
-            ))}
+            ))
+            )}
             </select>
           <input type="text" placeholder="Description" value={form.description || ''} onChange={e => setForm({ ...form, description: e.target.value })} required />
           <input type="number" placeholder="Amount" value={form.amount || ''} onChange={e => setForm({ ...form, amount: Number(e.target.value) })} required />
