@@ -10,15 +10,34 @@ const LoginPage: React.FC = () => {
   const { login } = useAuth();
   const nav = useNavigate();
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    try {
-      await login(email, password);
-      nav('/', { replace: true });
-    } catch {
-      alert('Login failed');
+  const LOGIN_MUTATION = `
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+      user { id email }
     }
-  };
+  }
+`;
+  // Handle form submission
+  const handleSubmit = async (e: FormEvent) => {
+  e.preventDefault();
+  try {
+    const response = await fetch('/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: LOGIN_MUTATION,
+        variables: { email, password }
+      }),
+    });
+    const { data, errors } = await response.json();
+    if (errors) throw new Error('Login failed');
+    // Save token, etc.
+    nav('/', { replace: true });
+  } catch {
+    alert('Login failed');
+  }
+};
 
   // Demo button just navigates to "/" with a flag
   const handleDemo = () => {
@@ -50,7 +69,7 @@ const LoginPage: React.FC = () => {
         </div>
 
         <div style={{ marginTop: 8 }}>
-          <button type="button" className="btn btn-dark">Login</button>
+          <button type="submit" className="btn btn-dark">Login</button>
           <button
             type="button" className="btn btn-primary"
             onClick={handleDemo}
