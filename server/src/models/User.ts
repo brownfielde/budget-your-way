@@ -72,3 +72,4 @@ userSchema.methods.isCorrectPassword = async function (password: string): Promis
 const User = model<IUser>('User', userSchema);
 
 export default User;
+
