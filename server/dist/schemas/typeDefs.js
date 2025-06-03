@@ -16,8 +16,6 @@ const typeDefs = `
     type: String!
   }
 
-
-
   input UserInput {
     username: String!
     email: String!

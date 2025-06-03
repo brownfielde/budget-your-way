@@ -50,6 +50,7 @@ userSchema.pre<IUser>('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
+    
   }
 
   next();
@@ -57,7 +58,16 @@ userSchema.pre<IUser>('save', async function (next) {
 
 userSchema.methods.isCorrectPassword = async function (password: string): Promise<boolean> {
   return bcrypt.compare(password, this.password);
+  
 };
+
+
+// userSchema.methods.comparePassword = function (
+//   this: IUser,
+//   candidatePassword: string
+// ): Promise<boolean> {
+//   return bcrypt.compare(candidatePassword, this.password);
+// };
 
 const User = model<IUser>('User', userSchema);
 

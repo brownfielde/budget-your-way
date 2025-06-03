@@ -53,6 +53,6 @@ const transactionSchema = new Schema<ITransaction>(
 
 
 
-const Transactions = model<ITransaction>('Transactions', transactionSchema);
+const Transaction = model<ITransaction>('Transaction', transactionSchema);
 
-export default Transactions;
+export default Transaction;

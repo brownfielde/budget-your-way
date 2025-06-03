@@ -35,5 +35,5 @@ const transactionSchema = new Schema({
     toJSON: { getters: true },
     toObject: { getters: true },
 });
-const Transactions = model('Transactions', transactionSchema);
-export default Transactions;
+const Transaction = model('Transaction', transactionSchema);
+export default Transaction;

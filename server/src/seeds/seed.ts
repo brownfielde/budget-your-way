@@ -10,6 +10,7 @@ const seedDatabase = async (): Promise<void> => {
     await db();
     await cleanDB();
 
+
     await User.create(userData);
     await Transactions.insertMany(transactionsData);
 

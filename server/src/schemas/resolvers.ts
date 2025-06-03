@@ -48,11 +48,11 @@ const resolvers = {
     // The 'me' query relies on the context to check if the user is authenticated
     me: async (_parent: any, _args: any, context: any) => {
       // If the user is authenticated, find and return the user's information along with their thoughts
-      if (context.user) {
-        return User.findOne({ _id: context.user._id });
+      if (!context.user) {
+       //return User.findOne({ _id: context.user._id });
+       throw new AuthenticationError('Could not authenticate user.');
       }
-      // If the user is not authenticated, throw an AuthenticationError
-      throw new AuthenticationError('Could not authenticate user.');
+      return User.findOne({ _id: context.user._id }).populate('transactions');
     },
   },
   Mutation: {
