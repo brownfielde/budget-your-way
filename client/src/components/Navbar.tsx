@@ -18,6 +18,7 @@ const user = Auth.getProfile(); // Assuming Auth.getUser() returns the current u
       <div className="nav-links">
         <NavLink to="/" end>Dashboard</NavLink>
         <NavLink to="/transactions">Transactions</NavLink>
+        <NavLink to="/information">Information</NavLink>
       </div>
       <div className="user-actions">
         {user && <span className="welcome">Hi, {user.username}</span>}

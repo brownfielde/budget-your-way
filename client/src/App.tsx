@@ -14,6 +14,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import TransactionPage from "./components/TransactionPage";
+import Information from "./components/InformationPage"
 
 // HTTP connection to the API
 const httpLink = createHttpLink({
@@ -59,9 +60,12 @@ const App: React.FC = () => {
             />
             <Route
               path="/transactions"
-              element={<TransactionPage />}
+              element={isAuthed ? <TransactionPage /> : <Navigate to="/login" replace />}
             />
-          
+          <Route
+            path="/information"
+            element={isAuthed ? <Information /> : <Navigate to="/login" replace />}
+          />
         </Routes>
       </div>
     </ApolloProvider>
