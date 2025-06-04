@@ -92,13 +92,13 @@ const resolvers = {
     },
     addTransaction: async (
       _parent: any,
-      args: Omit<TransactionsArgs, 'id'>
+      { input }: { input: Omit<TransactionsArgs, 'id'> }
     ) => {
       const last = await Transactions.findOne().sort({ id: -1 });
       const newId = last ? last.id + 1 : 1;
       const transaction = await Transactions.create({
         id: newId,
-        ...args,
+        ...input,
       });
       return transaction;
     },

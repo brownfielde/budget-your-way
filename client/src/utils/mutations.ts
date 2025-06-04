@@ -11,3 +11,25 @@ mutation login($email: String!, $password: String!) {
     }
 }
 `;
+
+export const ADD_TRANSACTION = gql`
+mutation addTransaction($input: TransactionInput!) {
+    addTransaction(input: $input) {
+        _id
+        date
+        category {
+            Groceries
+            Rent
+            Utilities
+            Entertainment
+        }
+        description
+        amount
+        type
+        user {
+            _id
+            email
+        }
+    }
+}
+`;

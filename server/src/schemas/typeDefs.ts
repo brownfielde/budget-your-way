@@ -38,10 +38,18 @@ const typeDefs = `
   type Mutation {
     addUser(input: UserInput!): Auth
     login(email: String!, password: String!): Auth
-    addTransaction(amount: Float!, description: String!, category: String!, date: String!, type: String!): Transaction
+    addTransaction(input: TransactionInput!): Transaction
     updateTransaction(id: ID!, amount: Float, description: String, category: String, date: String, type: String): Transaction
     removeTransaction(id: ID!): Transaction
   }
+    input TransactionInput {
+    date: String!
+    category: String!
+    description: String!
+    amount: Float!
+    type: String!
+  }
+    
 `;
 
 export default typeDefs;

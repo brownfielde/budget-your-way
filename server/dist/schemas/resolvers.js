@@ -52,12 +52,12 @@ const resolvers = {
             // Return the token and the user
             return { token, user };
         },
-        addTransaction: async (_parent, args) => {
+        addTransaction: async (_parent, { input }) => {
             const last = await Transactions.findOne().sort({ id: -1 });
             const newId = last ? last.id + 1 : 1;
             const transaction = await Transactions.create({
                 id: newId,
-                ...args,
+                ...input,
             });
             return transaction;
         },
