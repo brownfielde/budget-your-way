@@ -1,0 +1,28 @@
+{
+    "user": {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john.doe@example.com"
+    },
+    "budget": {
+        "monthlyIncome": 5000,
+        "expenses": [
+            {
+                "category": "Rent",
+                "amount": 1500
+            },
+            {
+                "category": "Groceries",
+                "amount": 400
+            },
+            {
+                "category": "Utilities",
+                "amount": 200
+            },
+            {
+                "category": "Transportation",
+                "amount": 300
+            }
+        ]
+    }
+}
