@@ -19,11 +19,16 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^8.2.2",
-    "wait-on": "^7.2.0",
+    "@cypress/react": "^9.0.1",
+    "@cypress/react18": "^2.0.1",
+    "@types/cypress": "^0.1.6",
+    "@types/mocha": "^10.0.10",
     "bootstrap": "^5.3.6",
+    "concurrently": "^8.2.2",
+    "cypress": "^14.4.1",
     "react-bootstrap": "^2.10.10",
-    "react-router-dom": "^7.6.1"
+    "react-router-dom": "^7.6.1",
+    "wait-on": "^7.2.0"
   },
   "dependencies": {
     "bootstrap": "^5.3.6",
