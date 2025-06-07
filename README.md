@@ -33,11 +33,6 @@
     * Pure CSS
     * W3 Schools
     * Stack Overflow
-  ## Screenshot
-  ![Customer Dashboard](./assets/custDash.png)
-  ![Request for Services](./assets/ReqServ.png)
-  ![Service History](./assets/serviceHist.png)
-  ![Contact Information](./assets/contact.png)
   ## Dependencies
   * React
   * Cypress
