@@ -1,11 +1,15 @@
 import express from 'express';
 import cors from 'cors';
+import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import db from './config/connection.js';
 import { ApolloServer } from '@apollo/server'; // Note: Import from @apollo/server-express
 import { expressMiddleware } from '@apollo/server/express4';
 import { typeDefs, resolvers } from './schemas/index.js';
 import { authenticateToken } from './utils/auth.js';
+// Recreate __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const server = new ApolloServer({
     typeDefs,
     resolvers
