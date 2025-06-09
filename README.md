@@ -1,5 +1,6 @@
 # budget-your-way ![Static Badge](https://img.shields.io/badge/license-MIT-blue.svg)
     Expense tracker and budget planner that allows users to track income/expenses and visualize spending in different categories like food, bills, entertainment.
+    [Budget Your Way](https://budget-your-way.onrender.com)
   ## Description
     Users can create accounts, build custom budget plans, categorize expenses, and track progress in real time. The application emphasizes simplicity and flexibility, allowing users to manage multiple budgets simultaneously — whether for a household, event, or financial milestone.
   ## User Story
@@ -8,6 +9,11 @@
     I WANT to log into my Budget Your Way account with validated credentials and view or update my  personal budget categories,
     SO THAT I can securely manage my financial goals and spending from anywhere, without needing   spreadsheets or manual tracking.
 ```
+  ## Screenshots 
+  ![login](assets/login.png)
+  ![Budget Your Way Website](assets/dashboard.png)
+  ![transaction page](assets/transaction.png)
+  ![information page](assets/info.png)
   ## Table of Contents
   - [Installation](#installation)
   - [Usage](#usage)
