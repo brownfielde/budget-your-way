@@ -18,7 +18,7 @@ import Information from "./components/InformationPage"
 
 // HTTP connection to the API
 const httpLink = createHttpLink({
-  uri: "http://localhost:3001/graphql", // Update if your server runs elsewhere
+  uri: "/graphql", // Update if your server runs elsewhere
 });
 
 // Auth middleware (optional, for JWT)
